@@ -1,11 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<title>Abitur Tracker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Abi Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; color: #ffffff; background: #0f172a; }
+    header { background: #111827; padding: 2rem 1rem; text-align: center; }
+    h1 { margin: 0 0 0.5rem; }
+    p { margin: 0.5rem 0; }
+    .section { padding: 2rem 1rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 1rem; }
+    .card { background: #1f2937; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .card h3 { margin-top: 0; }
+    footer { text-align: center; padding: 1rem; background: #111827; }
+  </style>
 </head>
 <body>
-<h1>Abitur Tracker</h1>
-<p>Diese Seite wird bald aktualisiert.</p>
+  <header>
+    <h1>Abitur Tracking Dashboard</h1>
+    <p>Dein Abi. Dein System. Trage Lernzeit ein, tracke deinen Fortschritt und halte den Überblick.</p>
+  </header>
+  <section class="section">
+    <h2>Übersicht</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Tägliche Lernzeit</h3>
+        <p>Notiere deine Lernzeit für jedes Fach.</p>
+      </div>
+      <div class="card">
+        <h3>Wochenziele</h3>
+        <p>Überwache, wie viel du pro Woche gelernt hast.</p>
+      </div>
+      <div class="card">
+        <h3>News</h3>
+        <p>Bleibe informiert mit den wichtigsten Meldungen des Tages.</p>
+      </div>
+      <div class="card">
+        <h3>Trading</h3>
+        <p>Sieh dir Live-Charts direkt im Dashboard an.</p>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2026 Abi Tracker</p>
+  </footer>
 </body>
 </html>
