@@ -1,49 +1,926 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Abi Tracker</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abi Tracker | GitHub Pages</title>
+  <meta name="description" content="GitHub-Pages-fertiger Abi Tracker mit Übersicht, Tages-Tracking, Lernzeit, News und TradingView-Tab." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; color: #ffffff; background: #0f172a; }
-    header { background: #111827; padding: 2rem 1rem; text-align: center; }
-    h1 { margin: 0 0 0.5rem; }
-    p { margin: 0.5rem 0; }
-    .section { padding: 2rem 1rem; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 1rem; }
-    .card { background: #1f2937; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .card h3 { margin-top: 0; }
-    footer { text-align: center; padding: 1rem; background: #111827; }
+    :root {
+      --bg-1: #020617;
+      --bg-2: #0f172a;
+      --bg-3: #111827;
+      --panel: rgba(255,255,255,0.06);
+      --panel-2: rgba(0,0,0,0.22);
+      --border: rgba(255,255,255,0.10);
+      --muted: rgba(255,255,255,0.70);
+      --muted-2: rgba(255,255,255,0.55);
+      --text: #ffffff;
+      --good: #34d399;
+      --warn: #fbbf24;
+      --sky: #38bdf8;
+      --violet: #a78bfa;
+      --danger: #fb7185;
+      --shadow: 0 25px 80px rgba(0,0,0,0.35);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,0.14), transparent 20%),
+        radial-gradient(circle at right, rgba(168,85,247,0.16), transparent 24%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2), var(--bg-3));
+    }
+
+    body {
+      padding: 32px 16px 60px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    .app {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.1rem, 4vw, 4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 14px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 1.02rem;
+    }
+
+    .motivation {
+      min-width: 280px;
+      max-width: 420px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      padding: 20px 22px;
+    }
+
+    .motivation small {
+      display: block;
+      color: var(--muted-2);
+      margin-bottom: 8px;
+    }
+
+    .motivation strong {
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .glass {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .panel {
+      padding: 22px;
+      margin-bottom: 24px;
+    }
+
+    .panel h2, .panel h3 {
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .panel-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .overview-grid,
+    .stats-grid,
+    .two-col,
+    .subject-grid,
+    .news-grid,
+    .weekly-grid,
+    .days-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .overview-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      align-items: stretch;
+    }
+
+    .overview-card {
+      min-height: 170px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .overview-card img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+    }
+
+    .overview-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .tab-button,
+    .btn,
+    .ghost-btn,
+    .link-btn {
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: .18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .tab-button.active {
+      background: #ffffff;
+      color: #0f172a;
+      border-color: transparent;
+      font-weight: 600;
+    }
+
+    .tab-button:hover,
+    .btn:hover,
+    .ghost-btn:hover,
+    .link-btn:hover {
+      background: rgba(255,255,255,0.10);
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      min-height: 138px;
+    }
+
+    .stat-card .label {
+      color: var(--muted-2);
+      font-size: .94rem;
+      margin-bottom: 10px;
+    }
+
+    .stat-card .value {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .stat-card .sub {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .progress {
+      margin-top: 12px;
+      height: 10px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress > span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--sky), var(--violet));
+      border-radius: inherit;
+    }
+
+    .two-col {
+      grid-template-columns: 1fr;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 980px) {
+      .two-col.main {
+        grid-template-columns: .95fr 1.05fr;
+      }
+
+      .two-col.secondary {
+        grid-template-columns: 1.08fr .92fr;
+      }
+
+      .news-grid {
+        grid-template-columns: 1.05fr .95fr;
+      }
+
+      .weekly-grid {
+        grid-template-columns: 1.1fr .9fr;
+      }
+    }
+
+    .card-block {
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+
+    .field-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field-grid.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .field-grid.cols-4 {
+      grid-template-columns: 1fr .55fr auto;
+    }
+
+    .field-grid.cols-5 {
+      grid-template-columns: .9fr 1.3fr .5fr auto;
+    }
+
+    @media (max-width: 900px) {
+      .field-grid.cols-3,
+      .field-grid.cols-4,
+      .field-grid.cols-5 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .input,
+    .select,
+    .textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 18px;
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    .textarea {
+      min-height: 132px;
+      resize: vertical;
+    }
+
+    .muted-box {
+      margin-top: 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(52,211,153,0.20);
+      background: rgba(52,211,153,0.10);
+      padding: 15px 16px;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .day-card,
+    .entry-card,
+    .weekly-card,
+    .news-card,
+    .tip-card,
+    .subject-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      padding: 16px;
+    }
+
+    .days-grid {
+      grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+    }
+
+    .day-card.active {
+      border-color: rgba(56,189,248,0.45);
+      background: rgba(56,189,248,0.15);
+    }
+
+    .day-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      padding: 4px 8px;
+      font-size: .72rem;
+      color: var(--text);
+    }
+
+    .entry-list,
+    .subject-grid,
+    .news-list,
+    .tips-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .entry-row,
+    .news-row,
+    .tip-row,
+    .subject-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .entry-main,
+    .news-main,
+    .tip-main,
+    .subject-main {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.10);
+      font-size: 1rem;
+      flex: 0 0 auto;
+    }
+
+    .entry-main h4,
+    .news-main h4,
+    .subject-main h4 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .entry-main p,
+    .news-main p,
+    .subject-main p,
+    .tip-main p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .delete-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .subject-grid {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .subject-card {
+      padding: 1px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
+    }
+
+    .subject-inner {
+      height: 100%;
+      border-radius: calc(var(--radius-lg) - 1px);
+      background: rgba(2,6,23,0.92);
+      padding: 16px;
+    }
+
+    .subject-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .mini-grid .input {
+      padding: 10px 12px;
+    }
+
+    .news-list a.link-btn {
+      white-space: nowrap;
+    }
+
+    .trading-frame {
+      width: 100%;
+      height: 680px;
+      border: 0;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: #020617;
+    }
+
+    .footer-space {
+      height: 10px;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Abitur Tracking Dashboard</h1>
-    <p>Dein Abi. Dein System. Trage Lernzeit ein, tracke deinen Fortschritt und halte den Überblick.</p>
-  </header>
-  <section class="section">
-    <h2>Übersicht</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Tägliche Lernzeit</h3>
-        <p>Notiere deine Lernzeit für jedes Fach.</p>
+  <div class="app">
+    <section class="hero">
+      <div>
+        <div class="badge">🎓 Abitur Tracking Dashboard</div>
+        <h1>Dein Abi. Dein System.</h1>
+        <p>
+          Trage Lernzeit direkt ein, tracke deinen Fortschritt pro Fach
+          und halte zusätzlich deinen Markt im Blick.
+        </p>
       </div>
-      <div class="card">
-        <h3>Wochenziele</h3>
-        <p>Überwache, wie viel du pro Woche gelernt hast.</p>
+      <div class="motivation">
+        <small>Heute zählt</small>
+        <strong>Ein erledigter Lerneintrag schlägt zehn perfekte Pläne.</strong>
       </div>
-      <div class="card">
-        <h3>News</h3>
-        <p>Bleibe informiert mit den wichtigsten Meldungen des Tages.</p>
+    </section>
+
+    <section class="panel glass">
+      <div class="panel-head">
+        <div>
+          <h2>Übersicht</h2>
+          <p>Die wichtigsten Bereiche deiner Website auf einen Blick.</p>
+        </div>
       </div>
-      <div class="card">
-        <h3>Trading</h3>
-        <p>Sieh dir Live-Charts direkt im Dashboard an.</p>
+      <div class="overview-grid">
+        <div class="overview-card">
+          <img src="assets/overview-card.svg" alt="Übersicht" />
+          <h3>Abi Tracking</h3>
+          <p>Tägliche Lernzeit, Fächerfortschritt und Prüfungsdaten an einem Ort.</p>
+        </div>
+        <div class="overview-card">
+          <img src="assets/overview-card.svg" alt="Wochenziele" />
+          <h3>Wochenziele</h3>
+          <p>Automatische Übersicht über Wochensoll, Blöcke und erfasste Minuten.</p>
+        </div>
+        <div class="overview-card">
+          <img src="assets/overview-card.svg" alt="News" />
+          <h3>News</h3>
+          <p>Wichtige Nachrichten des Tages direkt im Dashboard.</p>
+        </div>
+        <div class="overview-card">
+          <img src="assets/overview-card.svg" alt="Trading" />
+          <h3>Trading</h3>
+          <p>TradingView-Tab mit Live-Chart für dein Symbol und Intervall.</p>
+        </div>
       </div>
+    </section>
+
+    <div class="tabs">
+      <button class="tab-button active">Abi Tracking</button>
+      <button class="tab-button">TradingView Live Chart</button>
     </div>
-  </section>
-  <footer>
-    <p>&copy; 2026 Abi Tracker</p>
-  </footer>
+
+    <section class="stats-grid">
+      <div class="stat-card glass">
+        <div class="label">Nächste Prüfung</div>
+        <div class="value">Biologie</div>
+        <div class="sub">44 Tage</div>
+      </div>
+      <div class="stat-card glass">
+        <div class="label">Gesamtfortschritt</div>
+        <div class="value">7.5 / 69 Blöcke</div>
+        <div class="sub">11% erledigt</div>
+        <div class="progress"><span style="width:11%"></span></div>
+      </div>
+      <div class="stat-card glass">
+        <div class="label">Heute erfasst</div>
+        <div class="value">3 Einträge</div>
+        <div class="sub">2 Std. 5 Min.</div>
+      </div>
+      <div class="stat-card glass">
+        <div class="label">Streak</div>
+        <div class="value">4 Tage</div>
+        <div class="sub">mit Lernaktivität</div>
+      </div>
+    </section>
+
+    <section class="panel glass">
+      <div class="panel-head">
+        <div>
+          <h2>Tages-Tracking</h2>
+          <p>Wechsle zwischen Tagen und behalte deine Einträge sauber getrennt.</p>
+        </div>
+        <div class="tabs" style="margin:0">
+          <button class="ghost-btn">← Vorheriger Tag</button>
+          <input class="input" type="date" value="2026-03-09" style="width:190px" />
+          <button class="ghost-btn">Nächster Tag →</button>
+          <button class="btn">Heute</button>
+        </div>
+      </div>
+      <div class="days-grid">
+        <div class="day-card"><div class="day-top"><strong>Di, 03.03</strong></div><div>1 Eintrag</div><div class="sub">45 Minuten</div></div>
+        <div class="day-card"><div class="day-top"><strong>Mi, 04.03</strong></div><div>2 Einträge</div><div class="sub">95 Minuten</div></div>
+        <div class="day-card"><div class="day-top"><strong>Do, 05.03</strong></div><div>2 Einträge</div><div class="sub">110 Minuten</div></div>
+        <div class="day-card"><div class="day-top"><strong>Fr, 06.03</strong></div><div>0 Einträge</div><div class="sub">0 Minuten</div></div>
+        <div class="day-card"><div class="day-top"><strong>Sa, 07.03</strong></div><div>3 Einträge</div><div class="sub">150 Minuten</div></div>
+        <div class="day-card"><div class="day-top"><strong>So, 08.03</strong></div><div>2 Einträge</div><div class="sub">80 Minuten</div></div>
+        <div class="day-card active"><div class="day-top"><strong>Mo, 09.03</strong><span class="pill">Heute</span></div><div>3 Einträge</div><div class="sub">125 Minuten</div></div>
+      </div>
+    </section>
+
+    <section class="two-col main">
+      <div class="panel glass">
+        <div class="panel-head">
+          <div>
+            <h2>Schneller Zeiteintrag</h2>
+            <p>Trage einfach Minuten und Fach ein. Der Fortschritt wird automatisch zugerechnet.</p>
+          </div>
+        </div>
+        <div class="field-grid cols-4 card-block">
+          <select class="select">
+            <option>Biologie</option>
+            <option>Mathematik</option>
+            <option>Ethik</option>
+            <option>Deutsch</option>
+            <option>Englisch</option>
+          </select>
+          <input class="input" type="number" value="35" />
+          <button class="btn">⚡ Sofort eintragen</button>
+        </div>
+        <div class="muted-box">Beispiel: 35 Minuten + Biologie eintragen. Das Dashboard rechnet die Zeit automatisch zum Fachfortschritt dazu.</div>
+
+        <div class="entry-list" style="margin-top:16px">
+          <div class="entry-card">
+            <div class="entry-row">
+              <div class="entry-main">
+                <div class="icon-box">⏱</div>
+                <div>
+                  <h4>Biologie</h4>
+                  <p>35 Minuten · 17:20</p>
+                </div>
+              </div>
+              <button class="delete-btn">🗑</button>
+            </div>
+          </div>
+          <div class="entry-card">
+            <div class="entry-row">
+              <div class="entry-main">
+                <div class="icon-box">⏱</div>
+                <div>
+                  <h4>Mathematik</h4>
+                  <p>50 Minuten · 15:10</p>
+                </div>
+              </div>
+              <button class="delete-btn">🗑</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel glass">
+        <div class="panel-head">
+          <div>
+            <h2>Top-3 für diesen Tag</h2>
+            <p>Schreib nur das auf, was heute wirklich wichtig ist.</p>
+          </div>
+        </div>
+        <div class="field-grid cols-3">
+          <input class="input" value="Bio: Genetik wiederholen" />
+          <input class="input" value="Mathe: Analysis Aufgaben" />
+          <input class="input" value="Ethik: Zusammenfassung" />
+        </div>
+        <textarea class="textarea" style="margin-top:14px">Erst Bio anfangen, dann Mathe. Kein Handy im ersten Block.</textarea>
+      </div>
+    </section>
+
+    <section class="two-col secondary">
+      <div class="panel glass">
+        <div class="panel-head">
+          <div>
+            <h2>Optionale Lernblöcke</h2>
+            <p>Falls du mit geplanten Blöcken arbeiten willst, kannst du sie hier abhaken.</p>
+          </div>
+        </div>
+
+        <div class="entry-list">
+          <div class="entry-card" style="background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.30)">
+            <div class="entry-row">
+              <div class="entry-main">
+                <div class="icon-box" style="background:rgba(52,211,153,0.20)">✓</div>
+                <div>
+                  <h4>Biologie: aktives Wiederholen / Abfrage</h4>
+                  <p>Biologie · 90 Minuten</p>
+                </div>
+              </div>
+              <button class="delete-btn">🗑</button>
+            </div>
+          </div>
+          <div class="entry-card">
+            <div class="entry-row">
+              <div class="entry-main">
+                <div class="icon-box">✓</div>
+                <div>
+                  <h4>Mathematik: Aufgabenblock</h4>
+                  <p>Mathematik · 120 Minuten</p>
+                </div>
+              </div>
+              <button class="delete-btn">🗑</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-grid cols-5 card-block" style="margin-top:16px">
+          <select class="select"><option>Biologie</option></select>
+          <input class="input" value="Neuer Lernblock" />
+          <input class="input" type="number" value="60" />
+          <button class="btn">＋ Block</button>
+        </div>
+      </div>
+
+      <div class="panel glass">
+        <div class="panel-head">
+          <div>
+            <h2>Wochensoll pro Fach</h2>
+            <p>Die Woche der ausgewählten Tagesansicht wird automatisch ausgewertet.</p>
+          </div>
+        </div>
+        <div class="entry-list">
+          <div class="weekly-card">
+            <div class="entry-row">
+              <div>
+                <h4 style="margin:0 0 6px">Biologie</h4>
+                <p>2.1 / 5 Blöcke · 2 Std. 5 Min.</p>
+              </div>
+              <strong>42%</strong>
+            </div>
+            <div class="progress"><span style="width:42%"></span></div>
+          </div>
+          <div class="weekly-card">
+            <div class="entry-row">
+              <div>
+                <h4 style="margin:0 0 6px">Mathematik</h4>
+                <p>3.0 / 6 Blöcke · 3 Std.</p>
+              </div>
+              <strong>50%</strong>
+            </div>
+            <div class="progress"><span style="width:50%"></span></div>
+          </div>
+          <div class="weekly-card">
+            <div class="entry-row">
+              <div>
+                <h4 style="margin:0 0 6px">Ethik</h4>
+                <p>1.0 / 3 Blöcke · 1 Std.</p>
+              </div>
+              <strong>33%</strong>
+            </div>
+            <div class="progress"><span style="width:33%"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="news-grid">
+      <div class="panel glass">
+        <div class="panel-head">
+          <div>
+            <h2>Wichtigste Nachrichten des Tages</h2>
+            <p>Kurzer Überblick für den Tag, direkt im Dashboard.</p>
+          </div>
+          <button class="ghost-btn">↻ Aktualisieren</button>
+        </div>
+        <div class="news-list">
+          <div class="news-card">
+            <div class="news-row">
+              <div class="news-main">
+                <div class="icon-box">📰</div>
+                <div>
+                  <h4>Beispiel-Nachricht 1</h4>
+                  <p>Kurze Zusammenfassung der wichtigsten Meldung des Tages.</p>
+                </div>
+              </div>
+              <a href="#" class="link-btn">Link ↗</a>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-row">
+              <div class="news-main">
+                <div class="icon-box">📰</div>
+                <div>
+                  <h4>Beispiel-Nachricht 2</h4>
+                  <p>Noch eine Zusammenfassung, damit der Bereich vollständig aussieht.</p>
+                </div>
+              </div>
+              <a href="#" class="link-btn">Link ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel glass">
+        <div class="panel-head">
+          <div>
+            <h2>Fächer und Prüfungs-Countdown</h2>
+            <p>Fortschritt läuft automatisch über erfasste Minuten und erledigte Lernblöcke.</p>
+          </div>
+        </div>
+        <div class="subject-grid">
+          <div class="subject-card">
+            <div class="subject-inner">
+              <div class="subject-top">
+                <div>
+                  <h4>Biologie</h4>
+                  <p>Schriftlich</p>
+                </div>
+                <span class="pill">44 Tage</span>
+              </div>
+              <div class="field-grid cols-3">
+                <input class="input" type="date" value="2026-04-22" />
+                <input class="input" type="number" value="18" />
+                <input class="input" type="number" value="60" />
+              </div>
+              <div class="weekly-card" style="margin-top:14px">
+                <div class="entry-row">
+                  <div>
+                    <h4 style="margin:0 0 6px">Automatischer Fortschritt</h4>
+                    <p>2.1 / 18 Blöcke</p>
+                    <p>2 Std. 5 Min. erfasst</p>
+                  </div>
+                  <strong>12%</strong>
+                </div>
+                <div class="progress"><span style="width:12%"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subject-card">
+            <div class="subject-inner">
+              <div class="subject-top">
+                <div>
+                  <h4>Mathematik</h4>
+                  <p>Schriftlich</p>
+                </div>
+                <span class="pill">58 Tage</span>
+              </div>
+              <div class="field-grid cols-3">
+                <input class="input" type="date" value="2026-05-06" />
+                <input class="input" type="number" value="22" />
+                <input class="input" type="number" value="60" />
+              </div>
+              <div class="weekly-card" style="margin-top:14px">
+                <div class="entry-row">
+                  <div>
+                    <h4 style="margin:0 0 6px">Automatischer Fortschritt</h4>
+                    <p>3 / 22 Blöcke</p>
+                    <p>3 Std. erfasst</p>
+                  </div>
+                  <strong>14%</strong>
+                </div>
+                <div class="progress"><span style="width:14%"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="two-col main" style="margin-top:24px">
+      <div class="panel glass">
+        <div class="panel-head">
+          <div>
+            <h2>Tageserfolg</h2>
+            <p>Ein Satz reicht. Hauptsache sichtbar.</p>
+          </div>
+        </div>
+        <textarea class="textarea">Ich habe heute trotz Müdigkeit direkt 35 Minuten Bio eingetragen und weitergemacht.</textarea>
+      </div>
+
+      <div class="panel glass">
+        <div class="panel-head">
+          <div>
+            <h2>Mini-System für jeden Tag</h2>
+            <p>Einfach, klar und wiederholbar.</p>
+          </div>
+        </div>
+        <div class="tips-list">
+          <div class="tip-card"><div class="tip-row"><div class="tip-main"><div class="icon-box">›</div><p>Minuten direkt nach dem Lernen eintragen.</p></div></div></div>
+          <div class="tip-card"><div class="tip-row"><div class="tip-main"><div class="icon-box">›</div><p>Fach auswählen, nicht alles im Kopf behalten.</p></div></div></div>
+          <div class="tip-card"><div class="tip-row"><div class="tip-main"><div class="icon-box">›</div><p>Dashboard rechnet den Fortschritt automatisch hoch.</p></div></div></div>
+          <div class="tip-card"><div class="tip-row"><div class="tip-main"><div class="icon-box">›</div><p>Wochensoll regelmäßig kontrollieren.</p></div></div></div>
+          <div class="tip-card"><div class="tip-row"><div class="tip-main"><div class="icon-box">›</div><p>Schwierige Fächer zuerst, leichte später.</p></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel glass" style="margin-top:24px">
+      <div class="panel-head">
+        <div>
+          <h2>TradingView Live Chart</h2>
+          <p>Beispielansicht des zweiten Tabs mit Live-Chart.</p>
+        </div>
+        <div class="field-grid cols-4" style="width:min(100%,760px)">
+          <input class="input" value="BINANCE:BTCUSDT" />
+          <select class="select"><option>1h</option></select>
+          <button class="btn">Neu laden</button>
+        </div>
+      </div>
+      <iframe
+        class="trading-frame"
+        src="https://s.tradingview.com/widgetembed/?symbol=BINANCE%3ABTCUSDT&interval=60&theme=dark&style=1&timezone=Europe%2FBerlin&locale=de_DE&withdateranges=1&hide_side_toolbar=0&allow_symbol_change=1&saveimage=1&details=1&hotlist=1&calendar=1"
+        title="TradingView BINANCE BTCUSDT"
+        loading="lazy"
+      ></iframe>
+    </section>
+
+    <div class="footer-space"></div>
+  </div>
 </body>
 </html>
