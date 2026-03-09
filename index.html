@@ -30,489 +30,374 @@
     }
 
     * { box-sizing: border-box; }
-
     html, body {
       margin: 0;
       min-height: 100%;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at top, rgba(56,189,248,0.14), transparent 20%),
         radial-gradient(circle at right, rgba(168,85,247,0.16), transparent 24%),
         linear-gradient(180deg, var(--bg-1), var(--bg-2), var(--bg-3));
     }
-
-    body {
-      padding: 32px 16px 60px;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
+    body { padding: 24px; }
+    a { color: inherit; text-decoration: none; }
     button, input, select, textarea {
       font: inherit;
+      color: var(--text);
     }
+    button {
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      transition: 160ms ease;
+    }
+    button:hover { background: rgba(255,255,255,0.12); }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      outline: none;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.34); }
+    textarea { min-height: 132px; resize: vertical; }
 
     .app {
-      max-width: 1240px;
+      max-width: 1280px;
       margin: 0 auto;
     }
-
     .hero {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 24px;
-      margin-bottom: 28px;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 24px;
       flex-wrap: wrap;
     }
-
     .badge {
       display: inline-flex;
-      align-items: center;
       gap: 8px;
-      padding: 8px 14px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.05);
+      align-items: center;
+      padding: 8px 12px;
       border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
       font-size: 14px;
-      margin-bottom: 14px;
     }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.1rem, 4vw, 4rem);
-      line-height: 1.04;
-      letter-spacing: -0.03em;
+    .hero h1 {
+      margin: 14px 0 8px;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.05;
     }
-
     .hero p {
-      margin: 14px 0 0;
-      max-width: 760px;
+      margin: 0;
+      max-width: 820px;
       color: var(--muted);
       line-height: 1.6;
-      font-size: 1.02rem;
     }
-
     .motivation {
-      min-width: 280px;
-      max-width: 420px;
-      background: var(--panel);
-      border: 1px solid var(--border);
+      min-width: min(100%, 360px);
+      padding: 18px 20px;
       border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-      padding: 20px 22px;
     }
-
-    .motivation small {
-      display: block;
+    .motivation .label {
       color: var(--muted-2);
+      font-size: 14px;
       margin-bottom: 8px;
     }
 
-    .motivation strong {
-      font-size: 1.05rem;
-      line-height: 1.5;
-    }
 
-    .glass {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
+    .overview {
+      margin-bottom: 22px;
+      padding: 20px;
     }
-
-    .panel {
-      padding: 22px;
-      margin-bottom: 24px;
-    }
-
-    .panel h2, .panel h3 {
-      margin: 0;
-      letter-spacing: -0.02em;
-    }
-
-    .panel-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-
-    .panel-head p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .overview-grid,
-    .stats-grid,
-    .two-col,
-    .subject-grid,
-    .news-grid,
-    .weekly-grid,
-    .days-grid {
-      display: grid;
-      gap: 16px;
-    }
-
     .overview-grid {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      align-items: stretch;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 18px;
     }
-
     .overview-card {
-      min-height: 170px;
+      padding: 16px;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      overflow: hidden;
-      position: relative;
+      background: var(--panel-2);
     }
-
-    .overview-card img {
-      width: 56px;
-      height: 56px;
-      object-fit: contain;
+    .overview-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
     }
-
     .overview-card p {
       margin: 0;
       color: var(--muted);
-      line-height: 1.55;
+      font-size: 14px;
+      line-height: 1.6;
     }
 
     .tabs {
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .tab-button,
-    .btn,
-    .ghost-btn,
-    .link-btn {
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      padding: 10px 16px;
-      cursor: pointer;
-      transition: .18s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
     }
-
-    .tab-button.active {
-      background: #ffffff;
-      color: #0f172a;
-      border-color: transparent;
+    .tab-btn {
+      padding: 11px 16px;
+      border-radius: 16px;
       font-weight: 600;
     }
-
-    .tab-button:hover,
-    .btn:hover,
-    .ghost-btn:hover,
-    .link-btn:hover {
-      background: rgba(255,255,255,0.10);
+    .tab-btn.active {
+      background: white;
+      color: #0f172a;
+      border-color: rgba(255,255,255,0.85);
     }
 
-    .stats-grid {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
+    .panel {
+      border: 1px solid var(--border);
+      background: var(--panel);
       border-radius: var(--radius-xl);
-      padding: 20px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      min-height: 138px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
     }
-
-    .stat-card .label {
-      color: var(--muted-2);
-      font-size: .94rem;
-      margin-bottom: 10px;
-    }
-
-    .stat-card .value {
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .stat-card .sub {
-      color: var(--muted);
-      font-size: .95rem;
-    }
-
-    .progress {
-      margin-top: 12px;
-      height: 10px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress > span {
-      display: block;
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg, var(--sky), var(--violet));
-      border-radius: inherit;
-    }
-
-    .two-col {
-      grid-template-columns: 1fr;
-      margin-bottom: 24px;
-    }
-
-    @media (min-width: 980px) {
-      .two-col.main {
-        grid-template-columns: .95fr 1.05fr;
-      }
-
-      .two-col.secondary {
-        grid-template-columns: 1.08fr .92fr;
-      }
-
-      .news-grid {
-        grid-template-columns: 1.05fr .95fr;
-      }
-
-      .weekly-grid {
-        grid-template-columns: 1.1fr .9fr;
-      }
-    }
-
-    .card-block {
-      border: 1px solid var(--border);
-      background: var(--panel-2);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-    }
-
-    .field-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .field-grid.cols-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .field-grid.cols-4 {
-      grid-template-columns: 1fr .55fr auto;
-    }
-
-    .field-grid.cols-5 {
-      grid-template-columns: .9fr 1.3fr .5fr auto;
-    }
-
-    @media (max-width: 900px) {
-      .field-grid.cols-3,
-      .field-grid.cols-4,
-      .field-grid.cols-5 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .input,
-    .select,
-    .textarea {
-      width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 18px;
-      padding: 12px 14px;
-      outline: none;
-    }
-
-    .textarea {
-      min-height: 132px;
-      resize: vertical;
-    }
-
-    .muted-box {
-      margin-top: 16px;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(52,211,153,0.20);
-      background: rgba(52,211,153,0.10);
-      padding: 15px 16px;
-      color: rgba(255,255,255,0.88);
-    }
-
-    .day-card,
-    .entry-card,
-    .weekly-card,
-    .news-card,
-    .tip-card,
-    .subject-card {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      background: var(--panel-2);
-      padding: 16px;
-    }
-
-    .days-grid {
-      grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
-    }
-
-    .day-card.active {
-      border-color: rgba(56,189,248,0.45);
-      background: rgba(56,189,248,0.15);
-    }
-
-    .day-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .pill {
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.08);
-      padding: 4px 8px;
-      font-size: .72rem;
-      color: var(--text);
-    }
-
-    .entry-list,
-    .subject-grid,
-    .news-list,
-    .tips-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .entry-row,
-    .news-row,
-    .tip-row,
-    .subject-row {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .entry-main,
-    .news-main,
-    .tip-main,
-    .subject-main {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      flex: 1;
-    }
-
-    .icon-box {
-      width: 42px;
-      height: 42px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      background: rgba(255,255,255,0.10);
-      font-size: 1rem;
-      flex: 0 0 auto;
-    }
-
-    .entry-main h4,
-    .news-main h4,
-    .subject-main h4 {
+    .panel-inner { padding: 20px; }
+    .panel-title {
       margin: 0 0 6px;
-      font-size: 1rem;
+      font-size: 22px;
     }
-
-    .entry-main p,
-    .news-main p,
-    .subject-main p,
-    .tip-main p {
+    .panel-desc {
       margin: 0;
       color: var(--muted);
       line-height: 1.55;
+      font-size: 14px;
     }
 
-    .delete-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text);
-      cursor: pointer;
-    }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .grid-main { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; }
+    .grid-main-2 { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; }
+    .grid-main-3 { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; }
+    .grid-main-4 { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 18px; }
 
-    .delete-btn:hover {
-      background: rgba(255,255,255,0.08);
+    .stat {
+      padding: 18px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      box-shadow: var(--shadow);
     }
+    .stat .kicker { color: var(--muted-2); font-size: 14px; }
+    .stat .value { margin-top: 10px; font-size: 26px; font-weight: 700; }
+    .stat .sub { margin-top: 6px; color: var(--muted); font-size: 14px; }
 
-    .subject-grid {
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-
-    .subject-card {
-      padding: 1px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
-    }
-
-    .subject-inner {
-      height: 100%;
-      border-radius: calc(var(--radius-lg) - 1px);
-      background: rgba(2,6,23,0.92);
-      padding: 16px;
-    }
-
-    .subject-top {
+    .row-between {
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 14px;
+      align-items: center;
+      flex-wrap: wrap;
     }
+    .button-group { display: flex; gap: 10px; flex-wrap: wrap; }
 
-    .mini-grid {
+    .day-cards {
+      margin-top: 18px;
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(7, 1fr);
+      gap: 12px;
+    }
+    .day-card {
+      text-align: left;
+      padding: 14px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+    }
+    .day-card.active { border-color: rgba(56,189,248,0.45); background: rgba(56,189,248,0.14); }
+    .tiny-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      font-size: 10px;
+    }
+
+    .progress-bar {
+      position: relative;
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.10);
+      margin-top: 10px;
+    }
+    .progress-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: linear-gradient(90deg, #34d399, #38bdf8, #a78bfa);
+      border-radius: 999px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: 1fr 180px auto;
+      gap: 12px;
+      padding: 14px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+    }
+
+    .note-box {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(52,211,153,0.22);
+      background: rgba(52,211,153,0.10);
+      color: rgba(255,255,255,0.88);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .log-list, .block-list, .news-list, .weekly-list, .subjects-list, .tip-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .item-card {
+      padding: 14px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+    }
+    .item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .item-left {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      min-width: 0;
+      flex: 1;
+    }
+    .icon-bubble {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.10);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .item-title { font-weight: 700; }
+    .item-sub { color: var(--muted-2); margin-top: 4px; font-size: 14px; }
+    .done-card {
+      border-color: rgba(52,211,153,0.28);
+      background: rgba(52,211,153,0.10);
+    }
+
+    .circle-btn, .soft-btn, .solid-btn {
+      border-radius: 16px;
+      padding: 11px 14px;
+    }
+    .circle-btn {
+      width: 42px; height: 42px; display: grid; place-items: center; padding: 0;
+    }
+    .solid-btn { background: rgba(255,255,255,0.10); font-weight: 600; }
+
+    .subject-card {
+      padding: 1px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .subject-inner {
+      padding: 18px;
+      border-radius: calc(var(--radius-xl) - 1px);
+      background: rgba(2,6,23,0.88);
+    }
+    .pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-top: 14px;
+      margin-top: 12px;
     }
 
-    .mini-grid .input {
-      padding: 10px 12px;
+    .trading-controls {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr auto auto;
+      gap: 12px;
+      padding: 14px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background: var(--panel-2);
     }
-
-    .news-list a.link-btn {
-      white-space: nowrap;
-    }
-
-    .trading-frame {
+    iframe.chart {
       width: 100%;
       height: 680px;
       border: 0;
       border-radius: var(--radius-xl);
-      overflow: hidden;
-      background: #020617;
+      background: rgba(2,6,23,0.92);
     }
 
-    .footer-space {
-      height: 10px;
+    .tips-box {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .tip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+    }
+
+    .footer-box {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(251,191,36,0.24);
+      background: rgba(251,191,36,0.10);
+      color: rgba(255,255,255,0.88);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 1180px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-main, .grid-main-2, .grid-main-3, .grid-main-4 { grid-template-columns: 1fr; }
+      .subject-grid, .overview-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .day-cards { grid-template-columns: repeat(2, 1fr); }
+      .trading-controls, .quick-grid { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      body { padding: 14px; }
+      .grid-4 { grid-template-columns: 1fr; }
+      .day-cards { grid-template-columns: 1fr; }
+      .hero { gap: 14px; }
+      .hero h1 { font-size: 34px; }
     }
   </style>
 </head>
@@ -522,405 +407,909 @@
       <div>
         <div class="badge">🎓 Abitur Tracking Dashboard</div>
         <h1>Dein Abi. Dein System.</h1>
-        <p>
-          Trage Lernzeit direkt ein, tracke deinen Fortschritt pro Fach
-          und halte zusätzlich deinen Markt im Blick.
-        </p>
+        <p>GitHub-Pages-fertiger Abi Tracker: Trage Lernzeit direkt ein, tracke deinen Fortschritt pro Fach, behalte deine Prüfungen im Blick und nutze zusätzlich einen Trading-Tab mit Live-Chart.</p>
       </div>
       <div class="motivation">
-        <small>Heute zählt</small>
-        <strong>Ein erledigter Lerneintrag schlägt zehn perfekte Pläne.</strong>
+        <div class="label">Heute zählt</div>
+        <div id="motivationLine"></div>
       </div>
     </section>
 
-    <section class="panel glass">
-      <div class="panel-head">
+
+    <section class="panel overview">
+      <div class="row-between">
         <div>
-          <h2>Übersicht</h2>
-          <p>Die wichtigsten Bereiche deiner Website auf einen Blick.</p>
+          <h2 class="panel-title">Übersicht</h2>
+          <p class="panel-desc">Das ist die GitHub-Pages-Version deiner Website. Du brauchst nur die Dateien in ein Repository hochzuladen und GitHub Pages zu aktivieren.</p>
         </div>
+        <div class="pill">GitHub-ready</div>
       </div>
       <div class="overview-grid">
         <div class="overview-card">
-          <img src="assets/overview-card.svg" alt="Übersicht" />
-          <h3>Abi Tracking</h3>
-          <p>Tägliche Lernzeit, Fächerfortschritt und Prüfungsdaten an einem Ort.</p>
+          <h3>Was die Website kann</h3>
+          <p>Tages-Tracking, schneller Zeiteintrag, Lernblöcke, Wochensoll, Prüfungs-Countdown, News und TradingView-Tab.</p>
         </div>
         <div class="overview-card">
-          <img src="assets/overview-card.svg" alt="Wochenziele" />
-          <h3>Wochenziele</h3>
-          <p>Automatische Übersicht über Wochensoll, Blöcke und erfasste Minuten.</p>
+          <h3>Was gespeichert wird</h3>
+          <p>Deine Daten werden lokal im Browser gespeichert. Wenn du dasselbe Gerät und denselben Browser nutzt, bleiben deine Einträge erhalten.</p>
         </div>
         <div class="overview-card">
-          <img src="assets/overview-card.svg" alt="News" />
-          <h3>News</h3>
-          <p>Wichtige Nachrichten des Tages direkt im Dashboard.</p>
+          <h3>Für GitHub Pages</h3>
+          <p>Die Seite ist als statische HTML-Datei gebaut. Kein Build-Schritt, kein npm, kein extra Framework nötig.</p>
         </div>
         <div class="overview-card">
-          <img src="assets/overview-card.svg" alt="Trading" />
-          <h3>Trading</h3>
-          <p>TradingView-Tab mit Live-Chart für dein Symbol und Intervall.</p>
+          <h3>Wie du startest</h3>
+          <p>ZIP entpacken, Dateien in GitHub hochladen, dann unter Settings → Pages den Branch <strong>main</strong> auswählen.</p>
         </div>
       </div>
     </section>
 
-    <div class="tabs">
-      <button class="tab-button active">Abi Tracking</button>
-      <button class="tab-button">TradingView Live Chart</button>
+    
+        <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap">
+          <span class="tiny-badge">Komplettpaket für GitHub Pages</span>
+          <span class="tiny-badge">Lokale Assets enthalten</span>
+          <span class="tiny-badge">Kein Build nötig</span>
+        </div>
+
+        <div class="tabs">
+      <button class="tab-btn active" data-tab="abi">Abi Tracking</button>
+      <button class="tab-btn" data-tab="trading">TradingView Live Chart</button>
     </div>
 
-    <section class="stats-grid">
-      <div class="stat-card glass">
-        <div class="label">Nächste Prüfung</div>
-        <div class="value">Biologie</div>
-        <div class="sub">44 Tage</div>
-      </div>
-      <div class="stat-card glass">
-        <div class="label">Gesamtfortschritt</div>
-        <div class="value">7.5 / 69 Blöcke</div>
-        <div class="sub">11% erledigt</div>
-        <div class="progress"><span style="width:11%"></span></div>
-      </div>
-      <div class="stat-card glass">
-        <div class="label">Heute erfasst</div>
-        <div class="value">3 Einträge</div>
-        <div class="sub">2 Std. 5 Min.</div>
-      </div>
-      <div class="stat-card glass">
-        <div class="label">Streak</div>
-        <div class="value">4 Tage</div>
-        <div class="sub">mit Lernaktivität</div>
-      </div>
-    </section>
-
-    <section class="panel glass">
-      <div class="panel-head">
-        <div>
-          <h2>Tages-Tracking</h2>
-          <p>Wechsle zwischen Tagen und behalte deine Einträge sauber getrennt.</p>
-        </div>
-        <div class="tabs" style="margin:0">
-          <button class="ghost-btn">← Vorheriger Tag</button>
-          <input class="input" type="date" value="2026-03-09" style="width:190px" />
-          <button class="ghost-btn">Nächster Tag →</button>
-          <button class="btn">Heute</button>
-        </div>
-      </div>
-      <div class="days-grid">
-        <div class="day-card"><div class="day-top"><strong>Di, 03.03</strong></div><div>1 Eintrag</div><div class="sub">45 Minuten</div></div>
-        <div class="day-card"><div class="day-top"><strong>Mi, 04.03</strong></div><div>2 Einträge</div><div class="sub">95 Minuten</div></div>
-        <div class="day-card"><div class="day-top"><strong>Do, 05.03</strong></div><div>2 Einträge</div><div class="sub">110 Minuten</div></div>
-        <div class="day-card"><div class="day-top"><strong>Fr, 06.03</strong></div><div>0 Einträge</div><div class="sub">0 Minuten</div></div>
-        <div class="day-card"><div class="day-top"><strong>Sa, 07.03</strong></div><div>3 Einträge</div><div class="sub">150 Minuten</div></div>
-        <div class="day-card"><div class="day-top"><strong>So, 08.03</strong></div><div>2 Einträge</div><div class="sub">80 Minuten</div></div>
-        <div class="day-card active"><div class="day-top"><strong>Mo, 09.03</strong><span class="pill">Heute</span></div><div>3 Einträge</div><div class="sub">125 Minuten</div></div>
-      </div>
-    </section>
-
-    <section class="two-col main">
-      <div class="panel glass">
-        <div class="panel-head">
-          <div>
-            <h2>Schneller Zeiteintrag</h2>
-            <p>Trage einfach Minuten und Fach ein. Der Fortschritt wird automatisch zugerechnet.</p>
-          </div>
-        </div>
-        <div class="field-grid cols-4 card-block">
-          <select class="select">
-            <option>Biologie</option>
-            <option>Mathematik</option>
-            <option>Ethik</option>
-            <option>Deutsch</option>
-            <option>Englisch</option>
-          </select>
-          <input class="input" type="number" value="35" />
-          <button class="btn">⚡ Sofort eintragen</button>
-        </div>
-        <div class="muted-box">Beispiel: 35 Minuten + Biologie eintragen. Das Dashboard rechnet die Zeit automatisch zum Fachfortschritt dazu.</div>
-
-        <div class="entry-list" style="margin-top:16px">
-          <div class="entry-card">
-            <div class="entry-row">
-              <div class="entry-main">
-                <div class="icon-box">⏱</div>
-                <div>
-                  <h4>Biologie</h4>
-                  <p>35 Minuten · 17:20</p>
-                </div>
-              </div>
-              <button class="delete-btn">🗑</button>
+    <section id="abiTab">
+      <div class="panel">
+        <div class="panel-inner">
+          <div class="row-between">
+            <div>
+              <h2 class="panel-title">Tages-Tracking</h2>
+              <p class="panel-desc">Wechsle zwischen Tagen. Jeder Tag wird getrennt gespeichert und automatisch weitergeführt.</p>
+            </div>
+            <div class="button-group">
+              <button class="soft-btn" id="prevDayBtn">← Vorheriger Tag</button>
+              <input id="dateInput" type="date" style="width:190px" />
+              <button class="soft-btn" id="nextDayBtn">Nächster Tag →</button>
+              <button class="solid-btn" id="todayBtn">Heute</button>
             </div>
           </div>
-          <div class="entry-card">
-            <div class="entry-row">
-              <div class="entry-main">
-                <div class="icon-box">⏱</div>
-                <div>
-                  <h4>Mathematik</h4>
-                  <p>50 Minuten · 15:10</p>
-                </div>
-              </div>
-              <button class="delete-btn">🗑</button>
+          <div style="margin-top:14px; color:var(--muted-2); font-size:14px">Aktueller Lerntag</div>
+          <div id="selectedDateText" style="font-size:26px; font-weight:700; margin-top:4px"></div>
+          <div id="selectedDateMeta" style="margin-top:6px; color:var(--muted)"></div>
+          <div class="day-cards" id="recentDays"></div>
+        </div>
+      </div>
+
+      <div class="grid-4" style="margin-top:18px">
+        <div class="stat">
+          <div class="kicker">Nächste Prüfung</div>
+          <div class="value" id="nextExamName">Kein Termin</div>
+          <div class="sub" id="nextExamMeta">Datum eintragen</div>
+        </div>
+        <div class="stat">
+          <div class="kicker">Gesamtfortschritt</div>
+          <div class="value" id="totalProgressValue">0 / 0 Blöcke</div>
+          <div class="sub" id="totalProgressMeta">0% erledigt</div>
+          <div class="progress-bar"><div class="progress-fill" id="totalProgressFill"></div></div>
+        </div>
+        <div class="stat">
+          <div class="kicker" id="todayStatsLabel">Heute erfasst</div>
+          <div class="value" id="todayEntriesValue">0 Einträge</div>
+          <div class="sub" id="todayEntriesMeta">0 Min.</div>
+        </div>
+        <div class="stat">
+          <div class="kicker">Streak</div>
+          <div class="value" id="streakValue">0 Tage</div>
+          <div class="sub">mit Lernaktivität</div>
+        </div>
+      </div>
+
+      <div class="grid-main" style="margin-top:18px">
+        <div class="panel">
+          <div class="panel-inner">
+            <h2 class="panel-title">Schneller Zeiteintrag</h2>
+            <p class="panel-desc">Trage einfach Minuten und Fach ein. Der Fortschritt wird automatisch dem Fach und dem gewählten Tag zugerechnet.</p>
+            <div class="quick-grid" style="margin-top:16px">
+              <select id="quickSubject"></select>
+              <input id="quickMinutes" type="number" min="1" max="600" value="35" />
+              <button class="solid-btn" id="quickAddBtn">⚡ Sofort eintragen</button>
             </div>
+            <div class="note-box">Beispiel: 35 Minuten + Biologie eintragen. Das Dashboard rechnet die Zeit automatisch zum Fachfortschritt dazu.</div>
+            <div class="log-list" id="quickLogs"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-inner">
+            <h2 class="panel-title">Top-3 für diesen Tag</h2>
+            <p class="panel-desc">Schreib nur das auf, was an diesem Tag wirklich wichtig ist.</p>
+            <div class="grid-2" style="margin-top:16px; grid-template-columns: repeat(3, 1fr)">
+              <input id="priority1" placeholder="Priorität 1" />
+              <input id="priority2" placeholder="Priorität 2" />
+              <input id="priority3" placeholder="Priorität 3" />
+            </div>
+            <textarea id="dayNote" placeholder="Zum Beispiel: erst Bio anfangen, dann Mathe. Kein Handy im ersten Block." style="margin-top:16px"></textarea>
           </div>
         </div>
       </div>
 
-      <div class="panel glass">
-        <div class="panel-head">
-          <div>
-            <h2>Top-3 für diesen Tag</h2>
-            <p>Schreib nur das auf, was heute wirklich wichtig ist.</p>
-          </div>
-        </div>
-        <div class="field-grid cols-3">
-          <input class="input" value="Bio: Genetik wiederholen" />
-          <input class="input" value="Mathe: Analysis Aufgaben" />
-          <input class="input" value="Ethik: Zusammenfassung" />
-        </div>
-        <textarea class="textarea" style="margin-top:14px">Erst Bio anfangen, dann Mathe. Kein Handy im ersten Block.</textarea>
-      </div>
-    </section>
-
-    <section class="two-col secondary">
-      <div class="panel glass">
-        <div class="panel-head">
-          <div>
-            <h2>Optionale Lernblöcke</h2>
-            <p>Falls du mit geplanten Blöcken arbeiten willst, kannst du sie hier abhaken.</p>
-          </div>
-        </div>
-
-        <div class="entry-list">
-          <div class="entry-card" style="background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.30)">
-            <div class="entry-row">
-              <div class="entry-main">
-                <div class="icon-box" style="background:rgba(52,211,153,0.20)">✓</div>
-                <div>
-                  <h4>Biologie: aktives Wiederholen / Abfrage</h4>
-                  <p>Biologie · 90 Minuten</p>
-                </div>
-              </div>
-              <button class="delete-btn">🗑</button>
-            </div>
-          </div>
-          <div class="entry-card">
-            <div class="entry-row">
-              <div class="entry-main">
-                <div class="icon-box">✓</div>
-                <div>
-                  <h4>Mathematik: Aufgabenblock</h4>
-                  <p>Mathematik · 120 Minuten</p>
-                </div>
-              </div>
-              <button class="delete-btn">🗑</button>
+      <div class="grid-main-2" style="margin-top:18px">
+        <div class="panel">
+          <div class="panel-inner">
+            <h2 class="panel-title">Optionale Lernblöcke</h2>
+            <p class="panel-desc">Falls du trotzdem mit geplanten Blöcken arbeiten willst, kannst du sie hier abhaken. Auch diese Zeit zählt automatisch mit.</p>
+            <div class="block-list" id="plannedBlocks"></div>
+            <div class="quick-grid" style="margin-top:16px; grid-template-columns: 0.9fr 1.3fr 160px auto;">
+              <select id="blockSubject"></select>
+              <input id="blockTitle" placeholder="Neuer Lernblock" />
+              <input id="blockMinutes" type="number" min="15" max="240" value="60" />
+              <button class="solid-btn" id="addBlockBtn">＋ Block</button>
             </div>
           </div>
         </div>
 
-        <div class="field-grid cols-5 card-block" style="margin-top:16px">
-          <select class="select"><option>Biologie</option></select>
-          <input class="input" value="Neuer Lernblock" />
-          <input class="input" type="number" value="60" />
-          <button class="btn">＋ Block</button>
+        <div class="panel">
+          <div class="panel-inner">
+            <h2 class="panel-title">Wochensoll pro Fach</h2>
+            <p class="panel-desc">Die Woche der ausgewählten Tagesansicht wird automatisch ausgewertet.</p>
+            <div class="weekly-list" id="weeklySummary"></div>
+          </div>
         </div>
       </div>
 
-      <div class="panel glass">
-        <div class="panel-head">
-          <div>
-            <h2>Wochensoll pro Fach</h2>
-            <p>Die Woche der ausgewählten Tagesansicht wird automatisch ausgewertet.</p>
-          </div>
-        </div>
-        <div class="entry-list">
-          <div class="weekly-card">
-            <div class="entry-row">
+      <div class="grid-main-3" style="margin-top:18px">
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="row-between">
               <div>
-                <h4 style="margin:0 0 6px">Biologie</h4>
-                <p>2.1 / 5 Blöcke · 2 Std. 5 Min.</p>
+                <h2 class="panel-title">Wichtigste Nachrichten des Tages</h2>
+                <p class="panel-desc">Kurzer Überblick für den Tag, direkt im Dashboard.</p>
               </div>
-              <strong>42%</strong>
+              <button class="solid-btn" id="refreshNewsBtn">↻ Aktualisieren</button>
             </div>
-            <div class="progress"><span style="width:42%"></span></div>
-          </div>
-          <div class="weekly-card">
-            <div class="entry-row">
-              <div>
-                <h4 style="margin:0 0 6px">Mathematik</h4>
-                <p>3.0 / 6 Blöcke · 3 Std.</p>
-              </div>
-              <strong>50%</strong>
-            </div>
-            <div class="progress"><span style="width:50%"></span></div>
-          </div>
-          <div class="weekly-card">
-            <div class="entry-row">
-              <div>
-                <h4 style="margin:0 0 6px">Ethik</h4>
-                <p>1.0 / 3 Blöcke · 1 Std.</p>
-              </div>
-              <strong>33%</strong>
-            </div>
-            <div class="progress"><span style="width:33%"></span></div>
+            <div id="newsStatus" class="footer-box hidden"></div>
+            <div class="news-list" id="newsList"></div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="news-grid">
-      <div class="panel glass">
-        <div class="panel-head">
-          <div>
-            <h2>Wichtigste Nachrichten des Tages</h2>
-            <p>Kurzer Überblick für den Tag, direkt im Dashboard.</p>
-          </div>
-          <button class="ghost-btn">↻ Aktualisieren</button>
-        </div>
-        <div class="news-list">
-          <div class="news-card">
-            <div class="news-row">
-              <div class="news-main">
-                <div class="icon-box">📰</div>
-                <div>
-                  <h4>Beispiel-Nachricht 1</h4>
-                  <p>Kurze Zusammenfassung der wichtigsten Meldung des Tages.</p>
-                </div>
-              </div>
-              <a href="#" class="link-btn">Link ↗</a>
-            </div>
-          </div>
-          <div class="news-card">
-            <div class="news-row">
-              <div class="news-main">
-                <div class="icon-box">📰</div>
-                <div>
-                  <h4>Beispiel-Nachricht 2</h4>
-                  <p>Noch eine Zusammenfassung, damit der Bereich vollständig aussieht.</p>
-                </div>
-              </div>
-              <a href="#" class="link-btn">Link ↗</a>
-            </div>
+        <div class="panel">
+          <div class="panel-inner">
+            <h2 class="panel-title">Fächer und Prüfungs-Countdown</h2>
+            <p class="panel-desc">Fortschritt läuft automatisch über erfasste Minuten und erledigte Lernblöcke.</p>
+            <div class="subjects-list" id="subjectsList"></div>
           </div>
         </div>
       </div>
 
-      <div class="panel glass">
-        <div class="panel-head">
-          <div>
-            <h2>Fächer und Prüfungs-Countdown</h2>
-            <p>Fortschritt läuft automatisch über erfasste Minuten und erledigte Lernblöcke.</p>
+      <div class="grid-main-4" style="margin-top:18px">
+        <div class="panel">
+          <div class="panel-inner">
+            <h2 class="panel-title">Tageserfolg</h2>
+            <p class="panel-desc">Ein Satz reicht. Hauptsache sichtbar.</p>
+            <textarea id="dayWin" placeholder="Zum Beispiel: Ich habe heute trotz Müdigkeit direkt 35 Minuten Bio eingetragen und weitergemacht." style="margin-top:16px; min-height:150px"></textarea>
           </div>
         </div>
-        <div class="subject-grid">
-          <div class="subject-card">
-            <div class="subject-inner">
-              <div class="subject-top">
-                <div>
-                  <h4>Biologie</h4>
-                  <p>Schriftlich</p>
-                </div>
-                <span class="pill">44 Tage</span>
-              </div>
-              <div class="field-grid cols-3">
-                <input class="input" type="date" value="2026-04-22" />
-                <input class="input" type="number" value="18" />
-                <input class="input" type="number" value="60" />
-              </div>
-              <div class="weekly-card" style="margin-top:14px">
-                <div class="entry-row">
-                  <div>
-                    <h4 style="margin:0 0 6px">Automatischer Fortschritt</h4>
-                    <p>2.1 / 18 Blöcke</p>
-                    <p>2 Std. 5 Min. erfasst</p>
-                  </div>
-                  <strong>12%</strong>
-                </div>
-                <div class="progress"><span style="width:12%"></span></div>
-              </div>
-            </div>
-          </div>
 
-          <div class="subject-card">
-            <div class="subject-inner">
-              <div class="subject-top">
-                <div>
-                  <h4>Mathematik</h4>
-                  <p>Schriftlich</p>
-                </div>
-                <span class="pill">58 Tage</span>
-              </div>
-              <div class="field-grid cols-3">
-                <input class="input" type="date" value="2026-05-06" />
-                <input class="input" type="number" value="22" />
-                <input class="input" type="number" value="60" />
-              </div>
-              <div class="weekly-card" style="margin-top:14px">
-                <div class="entry-row">
-                  <div>
-                    <h4 style="margin:0 0 6px">Automatischer Fortschritt</h4>
-                    <p>3 / 22 Blöcke</p>
-                    <p>3 Std. erfasst</p>
-                  </div>
-                  <strong>14%</strong>
-                </div>
-                <div class="progress"><span style="width:14%"></span></div>
-              </div>
+        <div class="panel">
+          <div class="panel-inner">
+            <h2 class="panel-title">Mini-System für jeden Tag</h2>
+            <p class="panel-desc">Einfach, klar und wiederholbar.</p>
+            <div class="tips-box">
+              <div class="tip">➜ Minuten direkt nach dem Lernen eintragen.</div>
+              <div class="tip">➜ Fach auswählen, nicht alles im Kopf behalten.</div>
+              <div class="tip">➜ Dashboard rechnet den Fortschritt automatisch hoch.</div>
+              <div class="tip">➜ Wochensoll regelmäßig kontrollieren.</div>
+              <div class="tip">➜ Schwierige Fächer zuerst, leichte später.</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="two-col main" style="margin-top:24px">
-      <div class="panel glass">
-        <div class="panel-head">
-          <div>
-            <h2>Tageserfolg</h2>
-            <p>Ein Satz reicht. Hauptsache sichtbar.</p>
+    <section id="tradingTab" class="hidden">
+      <div class="panel">
+        <div class="panel-inner">
+          <h2 class="panel-title">TradingView Tab</h2>
+          <p class="panel-desc">Stabiler Live-Chart direkt im Dashboard. Symbol und Intervall kannst du hier ändern.</p>
+          <div class="trading-controls" style="margin-top:16px">
+            <input id="chartSymbol" value="BINANCE:BTCUSDT" placeholder="z. B. BINANCE:BTCUSDT oder OANDA:EURUSD" />
+            <select id="chartInterval">
+              <option value="1">1m</option>
+              <option value="5">5m</option>
+              <option value="15">15m</option>
+              <option value="30">30m</option>
+              <option value="60" selected>1h</option>
+              <option value="240">4h</option>
+              <option value="1D">1D</option>
+            </select>
+            <button class="solid-btn" id="reloadChartBtn">Neu laden</button>
+            <a class="solid-btn" href="https://www.tradingview.com/#signin" target="_blank" rel="noreferrer">TradingView öffnen</a>
           </div>
+          <div class="footer-box">Der Chart läuft über eine stabile iframe-Einbettung. Für dein persönliches TradingView-Login und private Layouts nutzt du den Button oben.</div>
         </div>
-        <textarea class="textarea">Ich habe heute trotz Müdigkeit direkt 35 Minuten Bio eingetragen und weitergemacht.</textarea>
       </div>
-
-      <div class="panel glass">
-        <div class="panel-head">
-          <div>
-            <h2>Mini-System für jeden Tag</h2>
-            <p>Einfach, klar und wiederholbar.</p>
-          </div>
-        </div>
-        <div class="tips-list">
-          <div class="tip-card"><div class="tip-row"><div class="tip-main"><div class="icon-box">›</div><p>Minuten direkt nach dem Lernen eintragen.</p></div></div></div>
-          <div class="tip-card"><div class="tip-row"><div class="tip-main"><div class="icon-box">›</div><p>Fach auswählen, nicht alles im Kopf behalten.</p></div></div></div>
-          <div class="tip-card"><div class="tip-row"><div class="tip-main"><div class="icon-box">›</div><p>Dashboard rechnet den Fortschritt automatisch hoch.</p></div></div></div>
-          <div class="tip-card"><div class="tip-row"><div class="tip-main"><div class="icon-box">›</div><p>Wochensoll regelmäßig kontrollieren.</p></div></div></div>
-          <div class="tip-card"><div class="tip-row"><div class="tip-main"><div class="icon-box">›</div><p>Schwierige Fächer zuerst, leichte später.</p></div></div></div>
+      <div class="panel" style="margin-top:18px">
+        <div class="panel-inner">
+          <iframe id="tradingFrame" class="chart" title="TradingView Live Chart" loading="lazy"></iframe>
         </div>
       </div>
     </section>
 
-    <section class="panel glass" style="margin-top:24px">
-      <div class="panel-head">
-        <div>
-          <h2>TradingView Live Chart</h2>
-          <p>Beispielansicht des zweiten Tabs mit Live-Chart.</p>
-        </div>
-        <div class="field-grid cols-4" style="width:min(100%,760px)">
-          <input class="input" value="BINANCE:BTCUSDT" />
-          <select class="select"><option>1h</option></select>
-          <button class="btn">Neu laden</button>
-        </div>
-      </div>
-      <iframe
-        class="trading-frame"
-        src="https://s.tradingview.com/widgetembed/?symbol=BINANCE%3ABTCUSDT&interval=60&theme=dark&style=1&timezone=Europe%2FBerlin&locale=de_DE&withdateranges=1&hide_side_toolbar=0&allow_symbol_change=1&saveimage=1&details=1&hotlist=1&calendar=1"
-        title="TradingView BINANCE BTCUSDT"
-        loading="lazy"
-      ></iframe>
-    </section>
+    <div class="footer-box" style="margin-top:22px">
+      GitHub-Hinweis: Wenn du diese Website in ein Repository hochlädst, funktioniert sie direkt als statische Seite. Für die Veröffentlichung brauchst du nur GitHub Pages zu aktivieren.
+    </div>
 
-    <div class="footer-space"></div>
   </div>
+
+  <script>
+    const STORAGE_KEY = 'abitur-tracker-static-v1';
+    const NEWS_ENDPOINTS = [
+      'https://www.tagesschau.de/api2u/homepage/',
+      'https://www.tagesschau.de/api2/homepage/'
+    ];
+
+    const defaultSubjects = [
+      { id: 'bio', name: 'Biologie', examDate: '2026-04-22', type: 'Schriftlich', targetBlocks: 18, weeklyTarget: 5, minutesPerBlock: 60 },
+      { id: 'math', name: 'Mathematik', examDate: '2026-05-06', type: 'Schriftlich', targetBlocks: 22, weeklyTarget: 6, minutesPerBlock: 60 },
+      { id: 'ethics', name: 'Ethik', examDate: '', type: 'Schriftlich', targetBlocks: 14, weeklyTarget: 3, minutesPerBlock: 60 },
+      { id: 'deutsch', name: 'Deutsch', examDate: '', type: 'Mündlich', targetBlocks: 8, weeklyTarget: 2, minutesPerBlock: 60 },
+      { id: 'english', name: 'Englisch', examDate: '', type: 'Mündlich', targetBlocks: 7, weeklyTarget: 1, minutesPerBlock: 60 },
+    ];
+
+    const starterBlocks = [
+      { subjectId: 'bio', title: 'Biologie: aktives Wiederholen / Abfrage', minutes: 90 },
+      { subjectId: 'math', title: 'Mathematik: Aufgabenblock', minutes: 120 },
+      { subjectId: 'ethics', title: 'Ethik: Theorie + Beispiel', minutes: 60 },
+    ];
+
+    const motivationalLines = [
+      'Ein erledigter Lerneintrag schlägt zehn perfekte Pläne.',
+      'Du musst heute nicht alles schaffen. Nur den nächsten wichtigen Schritt.',
+      'Konstanz gewinnt das Abi, nicht Chaos auf den letzten Metern.',
+      'Mach den ersten Schritt so klein, dass du wirklich anfängst.',
+      'Fortschritt ist messbar. Perfektion nicht.',
+    ];
+
+    function formatDateKey(date = new Date()) {
+      return date.toISOString().slice(0, 10);
+    }
+    function parseDateKey(dateKey) {
+      return new Date(`${dateKey}T12:00:00`);
+    }
+    function dateKeyWithOffset(dateKey, offset) {
+      const date = parseDateKey(dateKey);
+      date.setDate(date.getDate() + offset);
+      return formatDateKey(date);
+    }
+    function formatLongDate(dateKey) {
+      return new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }).format(parseDateKey(dateKey));
+    }
+    function formatShortDay(dateKey) {
+      return new Intl.DateTimeFormat('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }).format(parseDateKey(dateKey));
+    }
+    function formatTime(dateString) {
+      return new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' }).format(new Date(dateString));
+    }
+    function formatDateLabel(dateString) {
+      if (!dateString) return 'Termin eintragen';
+      return new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(`${dateString}T12:00:00`));
+    }
+    function formatMinutesReadable(totalMinutes) {
+      const minutes = Math.max(0, Math.round(Number(totalMinutes || 0)));
+      const hours = Math.floor(minutes / 60);
+      const rest = minutes % 60;
+      if (hours === 0) return `${rest} Min.`;
+      if (rest === 0) return `${hours} Std.`;
+      return `${hours} Std. ${rest} Min.`;
+    }
+    function formatBlockEquivalent(value) {
+      return Number(value || 0).toFixed(1).replace('.0', '');
+    }
+    function daysUntil(dateString) {
+      if (!dateString) return null;
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const exam = new Date(`${dateString}T00:00:00`);
+      return Math.ceil((exam.getTime() - today.getTime()) / 86400000);
+    }
+    function getIsoWeekId(date = new Date()) {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      const week = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+      return `${d.getUTCFullYear()}-W${String(week).padStart(2, '0')}`;
+    }
+    function subjectName(subjects, id) {
+      return subjects.find(subject => subject.id === id)?.name || 'Fach';
+    }
+    function createStarterBlocks(dateKey) {
+      return starterBlocks.map((block, index) => ({
+        id: `${dateKey}-${block.subjectId}-${index}`,
+        subjectId: block.subjectId,
+        title: block.title,
+        minutes: block.minutes,
+        done: false,
+      }));
+    }
+    function createDefaultEntry(dateKey) {
+      return {
+        priorities: ['', '', ''],
+        completedToday: createStarterBlocks(dateKey),
+        quickLogs: [],
+        note: '',
+        win: '',
+      };
+    }
+    function safeLoad() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+    function safeSave(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+    function normalizeNewsPayload(data) {
+      const pools = [
+        ...(Array.isArray(data?.topnews) ? data.topnews : []),
+        ...(Array.isArray(data?.news) ? data.news : []),
+        ...(Array.isArray(data?.breakingNews) ? data.breakingNews : []),
+        ...(Array.isArray(data?.regional) ? data.regional : []),
+      ];
+
+      return pools
+        .map((item, index) => ({
+          id: item?.id || item?.sophoraId || item?.externalId || item?.shareURL || item?.detailsweb || `${item?.title || 'news'}-${index}`,
+          title: item?.title || item?.headline || item?.topline || 'Ohne Titel',
+          teaser: item?.firstSentence || item?.teasertext || item?.shorttext || item?.description || item?.topline || '',
+          url: item?.shareURL || item?.detailsweb || item?.url || item?.links?.web || '',
+          date: item?.date || item?.datetime || item?.timestamp || '',
+        }))
+        .filter(item => item.title)
+        .filter((item, index, array) => array.findIndex(candidate => candidate.id === item.id || candidate.title === item.title) === index)
+        .slice(0, 6);
+    }
+    function buildTradingViewEmbedUrl(symbol, interval, theme = 'dark') {
+      const params = new URLSearchParams({
+        symbol,
+        interval,
+        theme,
+        style: '1',
+        timezone: 'Europe/Berlin',
+        locale: 'de_DE',
+        withdateranges: '1',
+        hide_side_toolbar: '0',
+        allow_symbol_change: '1',
+        saveimage: '1',
+        details: '1',
+        hotlist: '1',
+        calendar: '1',
+      });
+      return `https://s.tradingview.com/widgetembed/?${params.toString()}`;
+    }
+
+    const state = (() => {
+      const today = formatDateKey();
+      const saved = safeLoad();
+      return {
+        activeTab: saved?.activeTab || 'abi',
+        systemTodayKey: today,
+        selectedDateKey: saved?.selectedDateKey || today,
+        subjects: saved?.subjects || structuredClone(defaultSubjects),
+        daily: saved?.daily || { [today]: createDefaultEntry(today) },
+        chartConfig: saved?.chartConfig || { symbol: 'BINANCE:BTCUSDT', interval: '60', refreshKey: 0 },
+        newsItems: [],
+        newsLoading: false,
+        newsError: '',
+      };
+    })();
+
+    const el = {
+      motivationLine: document.getElementById('motivationLine'),
+      abiTab: document.getElementById('abiTab'),
+      tradingTab: document.getElementById('tradingTab'),
+      tabButtons: [...document.querySelectorAll('.tab-btn')],
+      dateInput: document.getElementById('dateInput'),
+      prevDayBtn: document.getElementById('prevDayBtn'),
+      nextDayBtn: document.getElementById('nextDayBtn'),
+      todayBtn: document.getElementById('todayBtn'),
+      selectedDateText: document.getElementById('selectedDateText'),
+      selectedDateMeta: document.getElementById('selectedDateMeta'),
+      recentDays: document.getElementById('recentDays'),
+      nextExamName: document.getElementById('nextExamName'),
+      nextExamMeta: document.getElementById('nextExamMeta'),
+      totalProgressValue: document.getElementById('totalProgressValue'),
+      totalProgressMeta: document.getElementById('totalProgressMeta'),
+      totalProgressFill: document.getElementById('totalProgressFill'),
+      todayStatsLabel: document.getElementById('todayStatsLabel'),
+      todayEntriesValue: document.getElementById('todayEntriesValue'),
+      todayEntriesMeta: document.getElementById('todayEntriesMeta'),
+      streakValue: document.getElementById('streakValue'),
+      quickSubject: document.getElementById('quickSubject'),
+      quickMinutes: document.getElementById('quickMinutes'),
+      quickAddBtn: document.getElementById('quickAddBtn'),
+      quickLogs: document.getElementById('quickLogs'),
+      priority1: document.getElementById('priority1'),
+      priority2: document.getElementById('priority2'),
+      priority3: document.getElementById('priority3'),
+      dayNote: document.getElementById('dayNote'),
+      plannedBlocks: document.getElementById('plannedBlocks'),
+      blockSubject: document.getElementById('blockSubject'),
+      blockTitle: document.getElementById('blockTitle'),
+      blockMinutes: document.getElementById('blockMinutes'),
+      addBlockBtn: document.getElementById('addBlockBtn'),
+      weeklySummary: document.getElementById('weeklySummary'),
+      refreshNewsBtn: document.getElementById('refreshNewsBtn'),
+      newsList: document.getElementById('newsList'),
+      newsStatus: document.getElementById('newsStatus'),
+      subjectsList: document.getElementById('subjectsList'),
+      dayWin: document.getElementById('dayWin'),
+      chartSymbol: document.getElementById('chartSymbol'),
+      chartInterval: document.getElementById('chartInterval'),
+      reloadChartBtn: document.getElementById('reloadChartBtn'),
+      tradingFrame: document.getElementById('tradingFrame'),
+    };
+
+    function getEntry(dateKey = state.selectedDateKey) {
+      if (!state.daily[dateKey]) state.daily[dateKey] = createDefaultEntry(dateKey);
+      return state.daily[dateKey];
+    }
+
+    function persist() {
+      safeSave({
+        activeTab: state.activeTab,
+        selectedDateKey: state.selectedDateKey,
+        subjects: state.subjects,
+        daily: state.daily,
+        chartConfig: state.chartConfig,
+      });
+    }
+
+    function renderSubjectOptions() {
+      const options = state.subjects.map(subject => `<option value="${subject.id}">${subject.name}</option>`).join('');
+      el.quickSubject.innerHTML = options;
+      el.blockSubject.innerHTML = options;
+      if (!state.subjects.some(subject => subject.id === el.quickSubject.value)) el.quickSubject.value = 'bio';
+      if (!state.subjects.some(subject => subject.id === el.blockSubject.value)) el.blockSubject.value = 'bio';
+    }
+
+    function computeSubjectMetrics() {
+      const selectedWeekId = getIsoWeekId(parseDateKey(state.selectedDateKey));
+      const metrics = Object.fromEntries(
+        state.subjects.map(subject => [subject.id, { totalMinutes: 0, totalBlocksEq: 0, weekMinutes: 0, weekBlocksEq: 0 }])
+      );
+
+      Object.entries(state.daily).forEach(([dateKey, dayEntry]) => {
+        const isSelectedWeek = getIsoWeekId(parseDateKey(dateKey)) === selectedWeekId;
+
+        dayEntry.completedToday.forEach(block => {
+          if (!block.done || !metrics[block.subjectId]) return;
+          metrics[block.subjectId].totalMinutes += Number(block.minutes || 0);
+          if (isSelectedWeek) metrics[block.subjectId].weekMinutes += Number(block.minutes || 0);
+        });
+
+        dayEntry.quickLogs.forEach(log => {
+          if (!metrics[log.subjectId]) return;
+          metrics[log.subjectId].totalMinutes += Number(log.minutes || 0);
+          if (isSelectedWeek) metrics[log.subjectId].weekMinutes += Number(log.minutes || 0);
+        });
+      });
+
+      state.subjects.forEach(subject => {
+        metrics[subject.id].totalBlocksEq = metrics[subject.id].totalMinutes / Math.max(subject.minutesPerBlock || 60, 1);
+        metrics[subject.id].weekBlocksEq = metrics[subject.id].weekMinutes / Math.max(subject.minutesPerBlock || 60, 1);
+      });
+
+      return metrics;
+    }
+
+    function computeStreak() {
+      let count = 0;
+      const cursor = new Date();
+      for (;;) {
+        const key = formatDateKey(cursor);
+        const current = state.daily[key];
+        if (!current) break;
+        const anyManual = current.completedToday.some(block => block.done);
+        const anyQuick = current.quickLogs.length > 0;
+        if (!anyManual && !anyQuick) break;
+        count += 1;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+      return count;
+    }
+
+    function renderRecentDays() {
+      const items = Array.from({ length: 7 }, (_, index) => {
+        const dateKey = dateKeyWithOffset(state.systemTodayKey, index - 6);
+        const entry = state.daily[dateKey];
+        const doneManual = entry?.completedToday.filter(block => block.done).length || 0;
+        const quick = entry?.quickLogs.length || 0;
+        const minutes = (entry?.completedToday.filter(block => block.done).reduce((sum, block) => sum + Number(block.minutes || 0), 0) || 0)
+          + (entry?.quickLogs.reduce((sum, log) => sum + Number(log.minutes || 0), 0) || 0);
+        return { dateKey, doneManual, quick, minutes };
+      });
+
+      el.recentDays.innerHTML = items.map(day => `
+        <button class="day-card ${day.dateKey === state.selectedDateKey ? 'active' : ''}" data-date="${day.dateKey}">
+          <div class="row-between" style="align-items:flex-start">
+            <div style="font-size:14px; font-weight:600">${formatShortDay(day.dateKey)}</div>
+            ${day.dateKey === state.systemTodayKey ? '<span class="tiny-badge">Heute</span>' : ''}
+          </div>
+          <div style="margin-top:12px; font-size:22px; font-weight:700">${day.doneManual + day.quick} Einträge</div>
+          <div style="margin-top:4px; color:var(--muted-2); font-size:14px">${day.minutes} Minuten</div>
+        </button>
+      `).join('');
+
+      el.recentDays.querySelectorAll('[data-date]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.selectedDateKey = btn.dataset.date;
+          render();
+        });
+      });
+    }
+
+    function renderTopArea(metrics) {
+      const entry = getEntry();
+      const selectedIsToday = state.selectedDateKey === state.systemTodayKey;
+      const totalBlocksTarget = state.subjects.reduce((sum, subject) => sum + Number(subject.targetBlocks || 0), 0);
+      const totalBlocksDone = state.subjects.reduce((sum, subject) => sum + metrics[subject.id].totalBlocksEq, 0);
+      const totalProgress = totalBlocksTarget > 0 ? Math.min(100, Math.round((totalBlocksDone / totalBlocksTarget) * 100)) : 0;
+      const todayMinutesDone = entry.completedToday.filter(block => block.done).reduce((sum, block) => sum + Number(block.minutes || 0), 0) + entry.quickLogs.reduce((sum, log) => sum + Number(log.minutes || 0), 0);
+      const totalEntriesToday = entry.completedToday.filter(block => block.done).length + entry.quickLogs.length;
+      const nextExam = [...state.subjects]
+        .filter(subject => subject.examDate)
+        .map(subject => ({ ...subject, remaining: daysUntil(subject.examDate) }))
+        .filter(subject => subject.remaining !== null && subject.remaining >= 0)
+        .sort((a, b) => a.remaining - b.remaining)[0];
+
+      el.dateInput.value = state.selectedDateKey;
+      el.selectedDateText.textContent = formatLongDate(state.selectedDateKey);
+      el.selectedDateMeta.textContent = selectedIsToday ? 'Du bearbeitest heute.' : 'Du betrachtest einen anderen Tag.';
+
+      el.nextExamName.textContent = nextExam ? nextExam.name : 'Kein Termin';
+      el.nextExamMeta.textContent = nextExam ? `${nextExam.remaining} Tage` : 'Datum eintragen';
+
+      el.totalProgressValue.textContent = `${formatBlockEquivalent(totalBlocksDone)} / ${totalBlocksTarget} Blöcke`;
+      el.totalProgressMeta.textContent = `${totalProgress}% erledigt`;
+      el.totalProgressFill.style.width = `${totalProgress}%`;
+
+      el.todayStatsLabel.textContent = selectedIsToday ? 'Heute erfasst' : 'An diesem Tag';
+      el.todayEntriesValue.textContent = `${totalEntriesToday} Einträge`;
+      el.todayEntriesMeta.textContent = formatMinutesReadable(todayMinutesDone);
+      el.streakValue.textContent = `${computeStreak()} Tage`;
+
+      el.priority1.value = entry.priorities[0] || '';
+      el.priority2.value = entry.priorities[1] || '';
+      el.priority3.value = entry.priorities[2] || '';
+      el.dayNote.value = entry.note || '';
+      el.dayWin.value = entry.win || '';
+    }
+
+    function renderQuickLogs() {
+      const entry = getEntry();
+      if (!entry.quickLogs.length) {
+        el.quickLogs.innerHTML = '<div class="item-card">Noch keine schnellen Zeiteinträge für diesen Tag.</div>';
+        return;
+      }
+      el.quickLogs.innerHTML = entry.quickLogs.map(log => `
+        <div class="item-card">
+          <div class="item-row">
+            <div class="item-left">
+              <div class="icon-bubble">⏱</div>
+              <div>
+                <div class="item-title">${subjectName(state.subjects, log.subjectId)}</div>
+                <div class="item-sub">${log.minutes} Minuten · ${log.createdAt ? formatTime(log.createdAt) : ''}</div>
+              </div>
+            </div>
+            <button class="circle-btn" data-delete-log="${log.id}">🗑</button>
+          </div>
+        </div>
+      `).join('');
+
+      el.quickLogs.querySelectorAll('[data-delete-log]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const entry = getEntry();
+          entry.quickLogs = entry.quickLogs.filter(log => log.id !== btn.dataset.deleteLog);
+          persist();
+          render();
+        });
+      });
+    }
+
+    function renderPlannedBlocks() {
+      const entry = getEntry();
+      el.plannedBlocks.innerHTML = entry.completedToday.map(block => `
+        <div class="item-card ${block.done ? 'done-card' : ''}">
+          <div class="item-row">
+            <button class="item-left" style="background:none;border:none;padding:0;cursor:pointer" data-toggle-block="${block.id}">
+              <div class="icon-bubble">${block.done ? '✅' : '⬜'}</div>
+              <div style="text-align:left">
+                <div class="item-title">${block.title}</div>
+                <div class="item-sub">${subjectName(state.subjects, block.subjectId)} · ${block.minutes} Minuten</div>
+              </div>
+            </button>
+            <button class="circle-btn" data-delete-block="${block.id}">🗑</button>
+          </div>
+        </div>
+      `).join('');
+
+      el.plannedBlocks.querySelectorAll('[data-toggle-block]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const entry = getEntry();
+          const block = entry.completedToday.find(item => item.id === btn.dataset.toggleBlock);
+          if (block) block.done = !block.done;
+          persist();
+          render();
+        });
+      });
+      el.plannedBlocks.querySelectorAll('[data-delete-block]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const entry = getEntry();
+          entry.completedToday = entry.completedToday.filter(block => block.id !== btn.dataset.deleteBlock);
+          persist();
+          render();
+        });
+      });
+    }
+
+    function renderWeeklySummary(metrics) {
+      el.weeklySummary.innerHTML = state.subjects.map(subject => {
+        const metric = metrics[subject.id];
+        const progress = subject.weeklyTarget > 0 ? Math.min(100, Math.round((metric.weekBlocksEq / subject.weeklyTarget) * 100)) : 0;
+        return `
+          <div class="item-card">
+            <div class="row-between">
+              <div>
+                <div class="item-title">${subject.name}</div>
+                <div class="item-sub">${formatBlockEquivalent(metric.weekBlocksEq)} / ${subject.weeklyTarget} Blöcke · ${formatMinutesReadable(metric.weekMinutes)}</div>
+              </div>
+              <div style="font-size:14px; color:var(--muted)">${progress}%</div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderSubjects(metrics) {
+      el.subjectsList.innerHTML = state.subjects.map(subject => {
+        const metric = metrics[subject.id];
+        const percent = subject.targetBlocks > 0 ? Math.min(100, Math.round((metric.totalBlocksEq / subject.targetBlocks) * 100)) : 0;
+        const remaining = daysUntil(subject.examDate);
+        return `
+          <div class="subject-card">
+            <div class="subject-inner">
+              <div class="row-between">
+                <div>
+                  <div style="font-size:22px; font-weight:700">${subject.name}</div>
+                  <div style="margin-top:4px; color:var(--muted-2)">${subject.type}</div>
+                </div>
+                <div class="pill">${remaining === null ? 'Kein Termin' : remaining < 0 ? 'Vorbei' : `${remaining} Tage`}</div>
+              </div>
+
+              <div class="subject-grid">
+                <div>
+                  <div style="font-size:13px; color:var(--muted-2); margin-bottom:6px">Prüfungstermin</div>
+                  <input data-subject-date="${subject.id}" type="date" value="${subject.examDate || ''}" />
+                  <div style="margin-top:6px; color:var(--muted-2); font-size:12px">${formatDateLabel(subject.examDate)}</div>
+                </div>
+                <div>
+                  <div style="font-size:13px; color:var(--muted-2); margin-bottom:6px">Zielblöcke</div>
+                  <input data-subject-target="${subject.id}" type="number" min="1" value="${subject.targetBlocks}" />
+                </div>
+                <div>
+                  <div style="font-size:13px; color:var(--muted-2); margin-bottom:6px">Wochensoll</div>
+                  <input data-subject-weekly="${subject.id}" type="number" min="0" value="${subject.weeklyTarget}" />
+                </div>
+                <div>
+                  <div style="font-size:13px; color:var(--muted-2); margin-bottom:6px">Min/Block</div>
+                  <input data-subject-minblock="${subject.id}" type="number" min="15" value="${subject.minutesPerBlock}" />
+                </div>
+              </div>
+
+              <div class="item-card" style="margin-top:14px">
+                <div class="row-between">
+                  <div>
+                    <div style="font-size:13px; color:var(--muted-2)">Automatischer Fortschritt</div>
+                    <div class="item-title" style="margin-top:6px">${formatBlockEquivalent(metric.totalBlocksEq)} / ${subject.targetBlocks} Blöcke</div>
+                    <div class="item-sub">${formatMinutesReadable(metric.totalMinutes)} erfasst</div>
+                  </div>
+                  <div style="font-size:14px; color:var(--muted)">${percent}%</div>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:${percent}%"></div></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      [['subject-date','examDate'], ['subject-target','targetBlocks'], ['subject-weekly','weeklyTarget'], ['subject-minblock','minutesPerBlock']].forEach(([key, prop]) => {
+        document.querySelectorAll(`[data-${key}]`).forEach(input => {
+          input.addEventListener('change', () => {
+            const subject = state.subjects.find(item => item.id === input.dataset[key]);
+            if (!subject) return;
+            subject[prop] = prop === 'examDate' ? input.value : Number(input.value || 0);
+            persist();
+            render();
+          });
+        });
+      });
+    }
+
+    function renderNews() {
+      if (state.newsError) {
+        el.newsStatus.classList.remove('hidden');
+        el.newsStatus.textContent = state.newsError;
+      } else if (state.newsLoading) {
+        el.newsStatus.classList.remove('hidden');
+        el.newsStatus.textContent = 'Nachrichten werden geladen...';
+      } else {
+        el.newsStatus.classList.add('hidden');
+        el.newsStatus.textContent = '';
+      }
+
+      if (!state.newsLoading && !state.newsItems.length && !state.newsError) {
+        el.newsList.innerHTML = '<div class="item-card">Noch keine Nachrichten geladen.</div>';
+        return;
+      }
+
+      el.newsList.innerHTML = state.newsItems.map(item => `
+        <div class="item-card">
+          <div class="item-row" style="align-items:flex-start">
+            <div class="item-left" style="align-items:flex-start">
+              <div class="icon-bubble">📰</div>
+              <div>
+                <div class="item-title">${item.title}</div>
+                ${item.teaser ? `<div class="item-sub" style="line-height:1.7; margin-top:8px">${item.teaser}</div>` : ''}
+              </div>
+            </div>
+            ${item.url ? `<a class="soft-btn" href="${item.url}" target="_blank" rel="noreferrer">Link ↗</a>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function loadNews() {
+      state.newsLoading = true;
+      state.newsError = '';
+      renderNews();
+      for (const endpoint of NEWS_ENDPOINTS) {
+        try {
+          const response = await fetch(endpoint, { cache: 'no-store' });
+          if (!response.ok) throw new Error('response not ok');
+          const payload = await response.json();
+          const normalized = normalizeNewsPayload(payload);
+          if (normalized.length > 0) {
+            state.newsItems = normalized;
+            state.newsLoading = false;
+            state.newsError = '';
+            renderNews();
+            return;
+          }
+        } catch (_) {}
+      }
+      state.newsLoading = false;
+      state.newsItems = [];
+      state.newsError = 'Nachrichten konnten gerade nicht geladen werden.';
+      renderNews();
+    }
+
+    function renderTrading() {
+      el.chartSymbol.value = state.chartConfig.symbol;
+      el.chartInterval.value = state.chartConfig.interval;
+      el.tradingFrame.src = buildTradingViewEmbedUrl(state.chartConfig.symbol, state.chartConfig.interval, 'dark');
+    }
+
+    function renderTabs() {
+      el.tabButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === state.activeTab));
+      el.abiTab.classList.toggle('hidden', state.activeTab !== 'abi');
+      el.tradingTab.classList.toggle('hidden', state.activeTab !== 'trading');
+    }
+
+    function render() {
+      if (!state.daily[state.selectedDateKey]) state.daily[state.selectedDateKey] = createDefaultEntry(state.selectedDateKey);
+      state.systemTodayKey = formatDateKey();
+      const lineIndex = parseDateKey(state.systemTodayKey).getDate() % motivationalLines.length;
+      el.motivationLine.textContent = motivationalLines[lineIndex];
+      renderTabs();
+      renderSubjectOptions();
+      const metrics = computeSubjectMetrics();
+      renderRecentDays();
+      renderTopArea(metrics);
+      renderQuickLogs();
+      renderPlannedBlocks();
+      renderWeeklySummary(metrics);
+      renderSubjects(metrics);
+      renderNews();
+      renderTrading();
+      persist();
+    }
+
+    function bind() {
+      el.tabButtons.forEach(btn => btn.addEventListener('click', () => {
+        state.activeTab = btn.dataset.tab;
+        persist();
+        render();
+      }));
+
+      el.prevDayBtn.addEventListener('click', () => { state.selectedDateKey = dateKeyWithOffset(state.selectedDateKey, -1); render(); });
+      el.nextDayBtn.addEventListener('click', () => { state.selectedDateKey = dateKeyWithOffset(state.selectedDateKey, 1); render(); });
+      el.todayBtn.addEventListener('click', () => { state.selectedDateKey = state.systemTodayKey; render(); });
+      el.dateInput.addEventListener('change', () => { state.selectedDateKey = el.dateInput.value; render(); });
+
+      [el.priority1, el.priority2, el.priority3].forEach((input, index) => {
+        input.addEventListener('input', () => {
+          const entry = getEntry();
+          entry.priorities[index] = input.value;
+          persist();
+        });
+      });
+      el.dayNote.addEventListener('input', () => { getEntry().note = el.dayNote.value; persist(); });
+      el.dayWin.addEventListener('input', () => { getEntry().win = el.dayWin.value; persist(); });
+
+      el.quickAddBtn.addEventListener('click', () => {
+        const minutes = Number(el.quickMinutes.value || 0);
+        if (minutes <= 0) return;
+        const entry = getEntry();
+        entry.quickLogs.unshift({
+          id: `${state.selectedDateKey}-${Date.now()}`,
+          subjectId: el.quickSubject.value,
+          minutes,
+          createdAt: new Date().toISOString(),
+        });
+        persist();
+        render();
+      });
+
+      el.addBlockBtn.addEventListener('click', () => {
+        const entry = getEntry();
+        const title = el.blockTitle.value.trim() || `${subjectName(state.subjects, el.blockSubject.value)} Lernblock`;
+        entry.completedToday.push({
+          id: `${state.selectedDateKey}-${Date.now()}`,
+          subjectId: el.blockSubject.value,
+          title,
+          minutes: Number(el.blockMinutes.value || 60),
+          done: false,
+        });
+        el.blockTitle.value = '';
+        el.blockMinutes.value = '60';
+        persist();
+        render();
+      });
+
+      el.refreshNewsBtn.addEventListener('click', loadNews);
+
+      el.chartSymbol.addEventListener('input', () => {
+        state.chartConfig.symbol = el.chartSymbol.value.toUpperCase();
+        persist();
+      });
+      el.chartInterval.addEventListener('change', () => {
+        state.chartConfig.interval = el.chartInterval.value;
+        persist();
+        renderTrading();
+      });
+      el.reloadChartBtn.addEventListener('click', () => {
+        state.chartConfig.refreshKey += 1;
+        renderTrading();
+        persist();
+      });
+
+      setInterval(() => {
+        const nextTodayKey = formatDateKey();
+        const previousTodayKey = state.systemTodayKey;
+        if (nextTodayKey !== previousTodayKey) {
+          if (state.selectedDateKey === previousTodayKey) state.selectedDateKey = nextTodayKey;
+          state.systemTodayKey = nextTodayKey;
+          render();
+        }
+      }, 60000);
+    }
+
+    bind();
+    render();
+    loadNews();
+  </script>
 </body>
 </html>
